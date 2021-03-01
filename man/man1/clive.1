@@ -1,0 +1,273 @@
+.\" Process this file with
+.\" groff -man -Tascii clive.1
+.\"
+.Dd April 10, 2002
+.Dt CLIVE 1
+.Sh NAME
+.Nm clive
+.Nd A console LiveJournal client
+.Sh SYNOPSIS
+.Nm clive
+.Op Fl u Ar username
+.Op Fl w Ar password
+.Op Fl j Ar journal
+.Op Fl s Ar subject
+.Op Fl r Ar security
+.Op Fl f Ar mood
+.Op Fl i Ar userpic
+.Op Fl m Ar music
+.Op Fl l Ar location
+.Op Fl t Ar taglist
+.br
+.Op Fl p
+.Op Fl d
+.Op Fl Fl backdate Ar YYYYMMDDhhmm
+.Op Fl Fl replace= Ns Ar itemid
+.Op Fl Fl charset Ar encoding
+.Op Fl Fl plainpass | Fl Fl hashpass
+.Op Fl Fl softreturn
+.Pp
+.Nm clive
+.Op Fl Fl loginonly | Fl Fl nologin
+.Nm clive
+.Op Fl Fl lfgrp | Fl Fl laccess | Fl Fl lpic | Fl Fl lfriends | Fl Fl levents Ns Op = Ns Ar num
+.Nm clive
+.Op Fl Fl addfriend Ar name | Fl Fl delfriend Ar name
+.Sh DESCRIPTION
+.Nm clive
+is a console client for the LiveJournal system.  It doesn't offer much
+in the way of features.  It's strength lies in the ability to pipe the
+text for an entry into it on stdin, thus allowing it to be used
+filter-style. It an also lauch your preferred editor to type entries.
+It allows for users to login and post/read/replace events, and that's
+it.
+.Sh OPTIONS
+.Bl -tag -width Ds -compact
+.It Fl u Ar username
+.It Fl Fl user Ns = Ns Ar username
+Specify the username
+.It Fl w Ar password
+.It Fl Fl password Ns = Ns Ar password
+Specify the password
+.It Fl j Ar journal
+.It Fl Fl usejournal Ns = Ns Ar journal
+Specify the journal to use, if different from the username.
+You can also use the associated ID number obtainable with 
+.Fl Fl laccess .
+.It Fl s Ar subject
+.It Fl Fl subject Ns = Ns Ar subject
+The subject of the post.  This will disable interactive entry of the
+subject.
+.It Fl r Ar level
+.It Fl Fl security Ns = Ns Ar level
+Clive defaults to public security, unless specified otherwise.
+This option is how you do that from the command line.
+See the
+.Sx SECURITY
+section below for a description of that spec.
+.It Fl f Ar mood 
+.It Fl Fl mood Ns = Ns Ar mood
+LiveJournal allows you to display a mood along with your post
+Use this option to set it.
+Use quotes if you want to have whitespace in your mood.
+.It Fl m Ar music
+.It Fl Fl music Ns = Ns Ar music
+Describe the music you are listening to while writing this entry.
+Use quotes if you want to have whitespace in your music title.
+.It Fl l Ar location
+.It Fl Fl location Ns = Ns Ar location
+Describe where you are writing this entry (e.g. the name of your town).
+.It Fl t Ar tag Ns Op Ns , Ns Ar tag Ns , Ns Ar ...
+.It Fl Fl taglist Ar tag Ns Op Ns , Ns Ar tag Ns , Ns Ar ...
+Add tags to categorise this entry.  Multiple tags must be separated by
+commas.
+.It Fl i Ar keyword
+.It Fl Fl userpic Ar keyword
+Many users have more than one user picture, you can specify which one
+you would like to use here.  You can either use the picture keyword,
+or the ID as specified by 
+.Fl Fl lpic .
+.It Fl p
+.It Fl Fl preformat
+This will tell LiveJournal that we are sending preformatted text.
+This is useful if you have a lot of HTML in it.
+.It Fl d
+.It Fl Fl nocomments
+This will tell LiveJournal to disable comments on this post.
+.It Fl v
+.It Fl Fl version
+Display Clive version details and exit.
+.It Fl Fl help
+Display a short usage statement.
+.It Fl Fl backdate Ar YYYYMMDDhhmm
+Back date the item to year
+.Ar YYYY ,
+month
+.Ar MM ,
+day
+.Ar DD ,
+hour
+.Ar hh ,
+minute
+.Ar mm .
+This will insert it into your journal at that date, and it will prevent
+the post from showing on other users' friends pages.
+.It Fl Fl replace Ns = Ns Ar itemid
+Replace an existing entry. The itemid can be obtained by running with
+.Fl Fl levents
+first. Note that not just the entire text, but all settings of the post
+will be overridden, so you should use
+.Fl Fl backdate
+to reuse the old date. To delete an existing entry, just leave the event
+text empty.
+.It Fl Fl charset Ns = Ns Ar encoding
+Specify the local character set (e.g.
+.Ql utf-8 ,
+.Ql iso8859-2 ,
+.Ql koi8-r ) .
+By default, the characterset is automatically detected (from environment
+variables and system settings). Use this option to override the detected
+value. This option can be set in the configuration file.
+.It Fl Fl plainpass
+Clive, by default, uses a challenge-response system to verify your
+password.  If you use this option, it will send your password as
+plaintext.
+.Em Use of this option is not recommended.
+.It Fl Fl hashpass
+Clive, by default, uses a challenge-response system to verify your
+password. If you use this option, it will send an MD5 hash of your
+password to the server. Which is faster, but not very secure.
+.Em  Use of this option is not recommended,
+.It Fl Fl softreturn
+This will collapse multiple lines to a single long line. A new paragraph
+can still be started with an empty line in the text. In general this
+will generate pretier output on the website. This option can be set in
+the configuration file.
+.It Fl Fl lfrgp
+This will display a list of your friends groups with their associated ID
+numbers.
+.It Fl Fl laccess
+This will display a list of the journals you have access to and their
+associated ID numbers. If you join or leave a community, these numbers
+will change.
+.It Fl Fl lpic
+This will dislpay a list of your userpics and their associated IDs.
+If you make any changes to your user pictures, the IDs displayed may change.
+.It Fl Fl lfriends
+This will display a list of your friends and their birthdays (if set).
+.It Fl Fl addfriend Ar name
+Add a new friend. It is not an error to add an existing friend.
+.It Fl Fl delfriend Ar name
+Delete a friend. It is not an error to delete an already non-existing
+friend.
+.It Fl Fl levents Ns Op = Ns Ar num
+This will display a list of the num most recent journal entries. If no
+argument is given, it will only show the ID, timestamp and subject of
+the most recent entry.
+.It Fl Fl loginonly
+.It Fl Fl nologin
+These options control the behavior of clive with respect to logging into
+the LJ server. Logging in allows you to retrieve any user-specific
+information such as friend groups. If you wish to just login, use
+.Fl Fl loginonly .
+If you don't want to login at all use
+.Fl Fl nologin .
+.El
+.Sh FILES
+.Bl -tag -width Ds
+.It Pa ~/.cliverc
+Your personal configuration file, you can set most options in here so
+that you don't have to pass them in on the command line.
+.El
+.Sh SECURITY
+LiveJournal has a variety of security settings: public, private, and
+custom.  Clive supports all of these through the
+.Op Fl r
+or
+.Op Fl Fl security
+option.  Posts default to public security unless set on the commandline.
+Here are the different security levels and how to specify them. 
+.Bl -tag -width Ds
+.It Ql private
+Pass either 
+.Ql 1
+or 
+.Ql private
+as the argument, and you will be the only person that can view your post.
+.It Ql friends
+Pass either 
+.Ql 2
+or
+.Ql friends
+as the argument, and your post will only be viewable by the LiveJournal
+users you list as friends.
+.It Ql custom
+LiveJournal allows you to specify up to 30 different friend groups,
+and you can set your post readable by different groups. The way to
+construct a security spec for a custom setting is to start with a
+.Ql \&:
+and then put in the name
+.Bk
+(e.g.
+.Ql :closefriends ) .
+.Ek
+If you want to use multiple filters, continue separating with colons.
+To include whitespace, use quotes.
+.Bk
+(e.g.
+.Ql :schoolfriends:2:"Default View" )
+.Ek
+.El
+.Sh HEADERS
+It's annoying when you're editing a posting and realize another subject,
+or mood description might be more appropriate. It is now possible to set
+these in the posting itself by adding so called headers. If your posting
+starts with lines containing special keywords followed by a colon and
+value, these will be treated as special meta-information instead of the
+body of your posting. For example currently available headers are:
+.Pp
+.Bd -literal -offset indent
+Subject: An example posting
+Mood: happy
+Music: EAV - Ding Dong
+Taglist: example,first post,test
+.Ed
+.Pp
+These headers should be separated from the content of your posting by an
+empty line.
+.Sh CONFIGURATION
+We understand that it can be annoying to pass in half a dozen command
+line options every time you want to post to LiveJournal, so we allow
+you to have a configuration file that specifies all of these.
+You can specify key value pairs in your .cliverc for any of the command
+line options that take values. Each pair should go on a line of it's
+own. Any whitespace before and after the key or value is ignored. Lines
+that begin with
+.Ql #
+are also ignored.  Each pair should look like this: 
+.Dl key = value
+.Sh ENVIRONMENT
+.Bl -tag -width Ds -compact
+.It Ev VISUAL
+.It Ev EDITOR
+The name for the external editor to use. If
+.Ev VISUAL
+is set, this will be preferred. If neither variable is set, a very lame
+built-in editor will be used  This can be overriden in the configuration
+file.
+.El
+.Sh SEE ALSO
+.Pa http://ljclive.sourceforge.net/
+.Sh AUTHORS
+.Bl -item -compact
+.It
+Original author:
+.An -nosplit
+.An "Samuel Tesla"
+.It
+Current maintainer:
+.An "Johan van Selst"
+.It
+Contact email:
+.Aq clive-maintainer@gletsjer.net
+.El

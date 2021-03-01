@@ -1,0 +1,97 @@
+Changes since 0.4.9:
+- Add options -l (location) and -t (taglist; comma-separated)
+- More consistent option handling and clarify manpage
+
+Changes since 0.4.8:
+- Fix memory allocation bug
+- Convert (some) server information to local character set
+  Note: this requires passing the --charset option
+- Fix levents option by setting explicit protocol version
+
+Changes since 0.4.7:
+- Add server_port configuration option
+
+Changes since 0.4.6:
+- Add User-Agent to all HTTP requests, as required by LiveJournal
+
+Changes since 0.4.5:
+- Fix numerical security values
+- Let connections be terminated immediately after response
+- Improve server error message printing
+
+Changes since 0.4.4:
+- Fixed a bug in previous patch.
+  Note UTF-8 only works for posting journal entries, not in other requests.
+
+Changes since 0.4.3:
+- Clean up and finalise the iconv() patch
+  Use --charset to specify an input characterset (default: ISO-8859-1)
+
+Changes since 0.4.2:
+- Fix bug in prop_opt_preformatted that broke the -p option
+
+Changes since 0.4.1:
+- Change HTTP POST header to work with LiveJournal.com changes
+
+Changes since 0.4.0:
+- Add MD5 functions again for people without libmd
+
+Changes since 0.3-alpha-p10:
+- Improved check for missing functions
+- New -v (--version) option
+- New version numbering sceme: next release is 0.4.0
+
+Changes since 0.3-alpha-p9:
+- Removed compatibility functions (MD5, getopt_long)
+
+Changes since 0.3-alpha-p8:
+- Added BSD-style license - and install example cliverc in $pkgdatadir
+
+Changes since 0.3-alpha-p7:
+- Added --lcomments support (not in LJ yet)
+- Added challenge/response authentication and made this default method
+  Will automatically fallback to hash if server won't send a challenge
+- Added --hashpass to use the old authentication
+
+Changes since 0.3-alpha-p6:
+- Added our own getopt_long() function, it's not as common as expected
+- Added --enable-debug and --enable-DEBUG to ./configure script
+- Add BUGS file with bug-reporting guidelines
+- Several code cleanups
+- Think I finally fixed the crasher
+
+Changes since 0.3-alpha-p5:
+- Worked around a crasher in Debian's asprintf() function
+- Made a lot more function arguments constant
+- Wrapped the source in GNU automake setup for easier distribution
+
+Changes since 0.3-alpha-p4:
+- Keep temporary data when posting fails (when using $EDITOR)
+- Collapse multiple lines to a single line when --softreturn set
+- Writing better documentation, error messages, source indenting
+
+Changes since 0.3-alpha-p3:
+- Fixed header detection (don't skip half the text)
+- Fixed setting your mood (was broken a while ago)
+- Fixed setting mood (with proper ID) from mood header
+
+Changes since 0.3-alpha-p2:
+- Use libc getopt() and getopt_long()
+  If you don't have it: too bad - Try linking with -liberty then
+- Interpret Subject: Music: and Mood: headers from the posting
+
+Changes since 0.3-alpha-p1:
+- Fixed custom post security using friendgroups
+  It only works with names now, not with group IDs
+
+Changes since 0.3-alpha:
+- Decode the output of --levents
+- Fixed a crasher in friend group listing
+- Added --addfriend and --delfriend (only with default colours)
+
+Changes since 0.2-beta-p1:
+- Added --lfriends to list your friends (and their birthdays)
+- Added --levents[=num] to list your recent journal entries
+- Added --replace[=noteid] to replace/delete a journal entry
+- Prompt for username and password if not supplied on cmdline/config
+

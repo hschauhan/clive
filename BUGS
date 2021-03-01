@@ -1,0 +1,9 @@
+Clive has been tested on Linux/i386, FreeBSD/i386 and NetBSD/sparc.
+It requires specific library functions which are not available on
+older systems, notably gethostbyname(), asprintf() and vasprintf().
+
+To report bugs, please rebuild clive with './configure --enable-DEBUG'
+and run the program to reproduce the problem (if possible).
+Send the output with debug info to <clive-maintainer@gletsjer.net>
+and explain what you were doing and what kind of system you use.
+Remember to obscure your password from the debug output...

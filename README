@@ -1,0 +1,9 @@
+To install clive, do the following in the base package directory
+(the directory this file is in):
+
+  $ ./configure
+  $ make
+  $ make install
+
+As always, if you want to install clive somewhere other than /usr/local,
+just use the --prefix option to configure.
